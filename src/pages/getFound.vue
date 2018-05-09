@@ -140,12 +140,13 @@ export default {
           this.what.push(element.whattag);
         });
       }
+      this.search();
     },
     search() {
-      if (!this.searchVal) {
-        alert("搜索不能为空");
-        return;
-      }
+      // if (!this.searchVal) {
+      //   alert("搜索不能为空");
+      //   return;
+      // }
       let lixun = sessionStorage.getItem("lixun");
       this.$ajax({
         method: "post",
