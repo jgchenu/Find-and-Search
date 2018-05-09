@@ -1,0 +1,185 @@
+.release-container {
+  @import "./variable";
+  @import "./mixin";
+  background-color: #ddd;
+  width: 100%;
+  height: 1200px;
+  overflow: hidden;
+  #file {
+    display: none;
+  } //点击显示大图
+  .mint-popup-1 {
+    height: 600px;
+    img {
+      width: 600px;
+      height: 600px;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      border-radius: 10px;
+    }
+  }
+  .release {
+    width: 700px;
+    position: relative;
+    background-color: #fff;
+    height: 800px;
+    padding-top: 10px;
+    margin: 30px auto;
+    border-radius: 16px;
+    box-shadow: 0 0 15px #bbb;
+    overflow: hidden; //去除border的横线的圆角
+    input {
+      border-radius: 0;
+    } //header头部
+    .header {
+      display: flex;
+      flex-direction: row;
+      height: 80px;
+      align-items: center;
+      .icon-back {
+        margin-left: 30px;
+        font-size: 50px;
+        color: $lizhiColor;
+      }
+      #title {
+        border: none;
+        margin-left: 100px;
+        border-bottom: 2px solid $lizhiColor;
+        outline: none;
+        width: 400px;
+        font-size: 28px;
+        height: 40px;
+        line-height: 40px;
+        @include change-holder($pinkColor, 30px);
+      }
+    }
+    .white-select-detail {
+      background-color: #ffffff;
+      position: absolute;
+      z-index: 3;
+    } // 详情
+    #describe {
+      margin: 20px auto;
+      margin-left: 60px;
+      outline: none;
+      border: none;
+      font-size: 36px;
+      overflow: hidden;
+      @include change-holder($pinkColor, 32px);
+    } //填写信息部分
+    .message {
+      overflow: hidden;
+      width: 90%;
+      margin: 10px auto;
+      border-top: 3px dashed $lizhiColor;
+      display: flex; // 左边
+      .left {
+        display: flex;
+        flex-grow: 1;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        .icon-add {
+          margin-top: 20px;
+          color: $lizhiColor;
+          font-size: 80px;
+          border: 3px solid $lizhiColor;
+          padding: 20px;
+        }
+        .cancel {
+          background: $lizhiColor;
+          width: 20px;
+          height: 20px;
+          line-height: 20px;
+          text-align: center;
+          color: #fff;
+          border-radius: 50%;
+          position: absolute;
+          top: 10px;
+          right: 0;
+        }
+        .file-image {
+          width: 140px;
+          height: 140px;
+        }
+      } // 中间
+      .center {
+        display: flex;
+        flex-grow: 2;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        overflow: hidden;
+        .selects {
+          margin: 12px 0;
+          .places,
+          .things {
+            outline: none;
+            border: 1px solid $lizhiColor;
+            border-radius: 6px;
+            color: $pinkColor;
+            width: 170px;
+            height: 40px;
+            line-height: 40px;
+            @include change-holder($pinkColor, 20px);
+            font-size: 20px;
+            margin: 0 5px;
+          }
+        }
+        #weixin,
+        #phone {
+          @include change-holder($pinkColor, 20px);
+          outline: none;
+          border: 1px solid $lizhiColor;
+          border-radius: 6px;
+          height: 40px;
+          width: 340px;
+          margin: 5px 0;
+          padding-left: 10px;
+        }
+      } // 右边
+      .right {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: left;
+        .my-checkbox {
+          height: 50px;
+          line-height: 50px;
+        }
+      }
+    }
+  } // 三角图形
+  .Triangle {
+    width: 0;
+    height: 0;
+    border: 40px solid #ffffff;
+    border-color: #fff transparent transparent transparent;
+    position: relative;
+    margin: 0 auto;
+    margin-top: -40px;
+  } // 上传按钮
+  .subButton {
+    width: 180px;
+    height: 180px;
+    display: block;
+    margin: 0 auto 0;
+    margin-top: -40px;
+  }
+  .edit-button,
+  .delete-button,
+  .solve-button {
+    font-size: 30px;
+    width: 200px;
+    height: 80px;
+    border-radius: 30px;
+    outline: none;
+    background-color: $lizhiColor;
+    color: #ffffff;
+    border: none;
+    padding: 0;
+    margin-left: 30px;
+  }
+}
