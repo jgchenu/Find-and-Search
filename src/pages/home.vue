@@ -31,7 +31,6 @@ import searchList from "@/components/home/search-list";
 import store from "@/vuex/store.js";
 import selectPlace from "@/components/home/select-place";
 import selectDetail from "@/components/home/select-detail";
-import { MessageBox } from "mint-ui";
 export default {
   mounted() {
     let lixun = sessionStorage.getItem("lixun");
