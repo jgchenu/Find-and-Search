@@ -11,7 +11,7 @@
                 <span class="iconfont icon-lishi time">{{date||"不确定"}}</span>
                 <span class="iconfont icon-bofang" v-if="list.state==2">进行中</span>
                 <span class="iconfont icon-success" v-if="list.state==4">已解决</span>
-                <span class="iconfont icon icon-f14" v-if="list.state==3" @click.prevent="resub">重新发布</span>
+                <span class="iconfont icon icon-f14" v-if="list.state==3" @click.stop="resub">重新发布</span>
             </p>
         </div>
     </div>
