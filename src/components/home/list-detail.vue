@@ -33,7 +33,6 @@ import store from "@/vuex/store.js";
 import axios from "axios";
 export default {
   name: "listDetail",
-
   mounted() {
     let lixun = sessionStorage.getItem("lixun");
     let id = this.$route.query.id;

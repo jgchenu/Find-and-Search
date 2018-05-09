@@ -31,6 +31,7 @@ import searchList from "@/components/home/search-list";
 import store from "@/vuex/store.js";
 import selectPlace from "@/components/home/select-place";
 import selectDetail from "@/components/home/select-detail";
+import { MessageBox } from "mint-ui";
 export default {
   mounted() {
     let lixun = sessionStorage.getItem("lixun");
@@ -125,12 +126,13 @@ export default {
           this.what.push(element.whattag);
         });
       }
+      this.search();
     },
     search() {
-      if (!this.searchVal) {
-        alert("搜索不能为空");
-        return;
-      }
+      // if (!this.searchVal) {
+      //   MessageBox.alert("搜索不能为空");
+      //   return;
+      // }
       let lixun = sessionStorage.getItem("lixun");
       this.$ajax({
         method: "post",
