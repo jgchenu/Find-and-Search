@@ -11,9 +11,9 @@ var auth = (status, message = null) => {
   // let url = "http://192.168.1.141:8080";
   // let url = "http://192.168.1.113:8080";
   // let url = "http://chenjianguang.com/lixun";
-  // let url = "http://jwwo.szer.me/lx/index.html";
+  let url = "http://jwwo.szer.me/lx/index.html";
   // let url = window.location.href;
-  let url = "http://172.29.24.102:8080";
+  // let url = "http://172.29.24.102:8080";
 
   switch (status) {
     case 40102:

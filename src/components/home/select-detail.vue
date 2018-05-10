@@ -93,13 +93,13 @@ export default {
     background: #fff;
     margin: 0 auto;
     border-radius: 10px;
-    font-size: 12px;
+    font-size: 20px;
     display: flex;
     flex-direction: column;
     text-align: center;
     color: #c54844;
     p {
-      margin: 2px 0;
+      margin: 2px 0; 
     }
   }
   span.iconfont,

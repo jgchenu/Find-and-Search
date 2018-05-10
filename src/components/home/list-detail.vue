@@ -248,7 +248,8 @@ export default {
         }
         .message {
           margin: 20px 0;
-          width: 240px;
+          text-indent: 20px;
+          width: 300px;
           height: 160px;
           border-radius: 20px;
           color: $lizhiColor;
