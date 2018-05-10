@@ -3,7 +3,7 @@
         <div class="select-detail">
             <div class="select-detail-place">
                 <p>
-                    <span class="icon-coordinates iconfont"></span><span class="icon-coordinates">丢失地点</span> </p>
+                    <span class="icon-coordinates iconfont"></span> 丢失地点 </p>
                     <template v-for="(item,index) in placesList">
                 <my-checkbox :key="item.id" @click.native="selectPlace(index)" :isSelect="item.isSelect">{{item.wheretag}}</my-checkbox>
                 <br :key="item.id" v-if="index==4" />
@@ -11,7 +11,7 @@
             </div>
             <div class="select-detail-object">
                 <p>
-                    <span class="iconfont icon-icon-goods"></span><span class="icon-icon-goods">物品类型</span> </p>
+                    <span class="iconfont icon-icon-goods"></span> 物品类型</p>
                 <template v-for="(item,index) in thingList">
                     <my-checkbox :key="item.id" @click.native="selectThing(index)" :isSelect="item.isSelect">{{item.whattag}}</my-checkbox>
                     <br :key="item.id" v-if="index==3" />
@@ -64,18 +64,20 @@ export default {
       this.thingList[index].isSelect = !this.thingList[index].isSelect;
     },
     selectSure() {
-      let wheres = [],whats=[];
-      wheres=wheres.concat(
+      let wheres = [],
+        whats = [];
+      wheres = wheres.concat(
         this.placesList.filter(x => {
           return x.isSelect;
-        }),
-
+        })
       );
-      whats=whats.concat(this.thingList.filter(y => {
+      whats = whats.concat(
+        this.thingList.filter(y => {
           return y.isSelect;
-        }));
+        })
+      );
 
-      this.$emit("selectSure", [wheres,whats]);
+      this.$emit("selectSure", [wheres, whats]);
     }
   }
 };

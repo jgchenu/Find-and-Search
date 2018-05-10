@@ -66,6 +66,7 @@
       border: none;
       font-size: 36px;
       overflow: hidden;
+      width: 600px;
       @include change-holder($pinkColor, 32px);
     } //填写信息部分
     .message {

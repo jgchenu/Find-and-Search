@@ -3,8 +3,7 @@
     <div class="select-detail-container">
         <div class="select-detail">
             <div class="select-detail-place">
-                <p>
-                    <span class="icon-coordinates iconfont"></span>丢失地点</p>
+                <p><span class="iconfont icon-coordinates"></span>丢失地点</p>
                     <template v-for="(item,index) in placesList">
                 <my-checkbox :key="item.id" @click.native="selectPlace(index)" :isSelect="item.isSelect">{{item.wheretag}}</my-checkbox>
                 <br :key="item.id" v-if="index==4" />

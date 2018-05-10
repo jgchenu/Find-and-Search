@@ -97,9 +97,9 @@ router.beforeEach((to, from, next) => {
   // let url = "http://192.168.1.141:8080";
   // let url = "http://192.168.1.113:8080";
   // let url = "http://chenjianguang.com/lixun";
-  let url = "http://jwwo.szer.me/lx/index.html";
+  // let url = "http://jwwo.szer.me/lx/index.html";
   // let url = window.location.href;
-  // let url = "http://172.29.24.102:8080";
+  let url = "http://172.29.24.102:8080";
   if (getCookie("lzs_token")) {
     next();
   } else {
