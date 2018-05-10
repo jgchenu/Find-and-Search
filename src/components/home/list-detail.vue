@@ -6,7 +6,7 @@
       <h3 class="detail-title">{{listDetail.title}}</h3>
       <div class="detail">
         <div class="detail-img">
-          <img :src="imgurl" alt="原图" @click="popupVisible=true" lazy="loading">
+          <img :src="imgurl" alt="原图" @click.prevent="popupVisible=true" lazy="loading">
           <div class="message">
             <p>地点:{{listDetail.wheretag||"其他"}}</p>
             <p>类型:{{listDetail.whattag||"其他"}}</p>
@@ -232,7 +232,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
-        img {
+        .small-img {
           height: 300px;
           width: 300px;
           border-radius: 10px;

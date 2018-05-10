@@ -67,7 +67,7 @@
     </div>
     </div>
     <div class="Triangle"></div>
-    <img src="http://chenjianguang.com/static/lixun/sub.png" alt="点击提交" class="subButton" @click="subMessage">
+    <img src="http://chenjianguang.com/static/lixun/sub.png" alt="点击提交" class="subButton" @click.prevent="subMessage">
   </div>
 </template>
 <script>
