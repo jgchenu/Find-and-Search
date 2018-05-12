@@ -200,7 +200,11 @@ export default {
                 duration: 1000
               });
               setTimeout(() => {
-                this.$router.replace({ path: "/home" });
+                if (this.selectType[0].isSelect) {
+                  this.$router.replace({ path: "/home" });
+                }else{
+                   this.$router.replace({ path: "/getFound" });
+                }
                 window.location.reload();
               }, 1000);
             })

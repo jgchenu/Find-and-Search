@@ -113,7 +113,9 @@ router.beforeEach((to, from, next) => {
         router.push({
           path: path
         });
+        
         window.localStorage.setItem('lx_router','');
+        window.location.reload();
       }).catch(error => {
         console.log("没有换到token");
         let code = error.response.data.code;
