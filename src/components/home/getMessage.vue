@@ -13,6 +13,7 @@
   </div>
 </template>
 <script>
+import { wxFn } from "@/api/tool.js";
 export default {
   mounted() {
     let lixun = sessionStorage.getItem("lixun");

@@ -31,8 +31,10 @@ import store from "@/vuex/store.js";
 import selectPlace from "@/components/home/select-place";
 import selectDetail from "@/components/home/select-detail";
 import { Toast } from "mint-ui";
+import { wxFn } from "@/api/tool.js";
 export default {
   mounted() {
+    wxFn.call(this);
     let lixun = sessionStorage.getItem("lixun");
     this.$ajax({
       method: "get",

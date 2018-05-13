@@ -20,7 +20,7 @@
     <div class="circle-1"></div>
     <div class="circle-2"></div>
     <div class="circle-3"></div>
-    <div class="get-message-button" @click="goChat" :style="{background:'url('+$store.state.buttonUrl+')',backgroundSize:'100% 100%'}"></div>
+    <img class="get-message-button" @click.prevent="goChat" :src="$store.state.buttonUrl"/>
     <mt-popup
     v-model="popupVisible" popup-transition="popup-fade" class="mint-popup-1">
      <img :src="imgurl" alt="原图">
@@ -36,12 +36,6 @@ export default {
   mounted() {
     let lixun = sessionStorage.getItem("lixun");
     let id = this.$route.query.id;
-    if (!this.$store.state.buttonUrl) {
-      this.$store.commit(
-        "changeUrl",
-        "http://chenjianguang.com/static/lixun/getter.png"
-      );
-    }
     this.$ajax({
       method: "get",
       url: "/info/" + id
@@ -52,11 +46,23 @@ export default {
         this.imgurl = this.listDetail.picurl
           ? this.listDetail.picurl.master[0]
           : "http://chenjianguang.com/static/lixun/instead.png";
+        if (res.data.data.info.type === 1) {
+          this.$store.commit(
+            "changeUrl",
+            "http://chenjianguang.com/static/lixun/getter.png"
+          );
+        } else if (res.data.data.info.type === 2) {
+          this.$store.commit(
+            "changeUrl",
+            "http://chenjianguang.com/static/lixun/loster.png"
+          );
+        }
+        this.wx();
       })
       .catch(err => {
         console.log(err);
       });
-    this.wx();
+    
   },
   data() {
     return {
@@ -90,7 +96,6 @@ export default {
         .then(res => {
           this.share = res.data.data;
           console.log(res);
-
           wx.config({
             debug: false,
             appId: "wx0c6e2f0a288033bc",
@@ -108,12 +113,10 @@ export default {
           });
           let self = this;
           wx.ready(function() {
-            // let host = "http://192.168.1.113:8080";
-            // let host="http://chenjianguang.com/lixun";
             let host = "http://jwwo.szer.me/lx/index.html";
             var shareData = {
-              title: self.listDetail.title,
-              desc: self.listDetail.content,
+              title: `${self.listDetail.type==1?'寻物':'招领'}: ${self.listDetail.title}`,
+              desc: "小荔寻-深大荔知的寻物平台",
               link: `${host}#/listDetail?id=${self.listDetail.id}`,
               imgUrl: self.imgurl
                 ? self.imgurl
@@ -187,11 +190,10 @@ export default {
     margin-left: 260px;
   }
   .get-message-button {
+    display: block;
     height: 180px;
     width: 400px;
     margin: 20px auto;
-    // background: url('http://chenjianguang.com/static/lixun/getter.png') no-repeat;
-    // background-size:100% 100%;
   }
   .detail-container {
     border: 1px solid #eab1af;

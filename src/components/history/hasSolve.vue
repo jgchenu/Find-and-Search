@@ -8,8 +8,10 @@
 </template>
 <script>
 import hisItem from "@/components/history/hisItem";
+import { wxFn } from "@/api/tool.js";
 export default {
   mounted() {
+    wxFn.call(this);
     let lixun = sessionStorage.getItem("lixun");
     this.$ajax({
       method: "get",

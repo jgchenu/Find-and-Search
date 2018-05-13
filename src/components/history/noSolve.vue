@@ -12,8 +12,10 @@
 </template>
 <script>
 import hisItem from "@/components/history/hisItem";
+import { wxFn } from "@/api/tool.js";
 export default {
   mounted() {
+    wxFn.call(this);
     let lixun = sessionStorage.getItem("lixun");
     this.$ajax({
       method: "get",
@@ -52,10 +54,13 @@ export default {
     hisItem
   },
   computed: {},
-  methods:{
-      toEdit(list) {
-      this.$router.push({ path: "/edit", query: { id: list.id ,state:list.state} });
-    },
+  methods: {
+    toEdit(list) {
+      this.$router.push({
+        path: "/edit",
+        query: { id: list.id, state: list.state }
+      });
+    }
   }
 };
 </script>

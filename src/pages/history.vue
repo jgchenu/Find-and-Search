@@ -19,8 +19,11 @@
   </div>
 </template>
 <script>
-export default {
 
+export default {
+  created(){
+
+  },
   data() {
     return {
 
