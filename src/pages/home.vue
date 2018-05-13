@@ -7,14 +7,14 @@
         <input type="text" placeholder="搜索物品和丢失地点" v-model="searchVal" @keyup.enter="search"><span class="icon-search iconfont" @click="search" ></span>
       </div>
     </div>
-    <transition name="select-fade" mode="out-in">
+    <transition name="select-fade" mode="out-in" >
     <select-detail v-show="showSelect" @selectSure="selectSure($event)"></select-detail>
     </transition>
   </div>
   <mt-loadmore :top-method="loadTop" ref="loadmore">
     <div class="search-lists"  v-infinite-scroll="loadMore"
-  infinite-scroll-disabled="true"
-  infinite-scroll-distance="10">
+  infinite-scroll-disabled="loading"
+  infinite-scroll-distance="10" infinite-scroll-immediate-check="false">
       <search-list v-for="list in searchList" :key="list.sid" :list="list" @click.native="toDetail(list)"></search-list>
       <p class="no-resourse">{{noResourse}}</p>
     </div>
@@ -31,19 +31,24 @@ import searchList from "@/components/home/search-list";
 import store from "@/vuex/store.js";
 import selectPlace from "@/components/home/select-place";
 import selectDetail from "@/components/home/select-detail";
+import { Toast } from "mint-ui";
 export default {
   mounted() {
     let lixun = sessionStorage.getItem("lixun");
     this.$ajax({
       method: "get",
       url: "/info",
-      params: {  type: 1 }
+      params: { type: 1 }
     })
       .then(res => {
         console.log("home", res);
-        let data=res.data.data;
         this.searchList = res.data.data.list;
-        this.nextUrl = data.list&&data.list.page&&data.page.url&&data.page.url.next||null;
+        this.nextUrl =
+          (res.data.data.page &&
+            res.data.data.page.url &&
+            res.data.data.page.url.next) ||
+          "";
+        console.log(this.nextUrl);
       })
       .catch(err => {
         console.log(err);
@@ -57,7 +62,10 @@ export default {
       what: [],
       where: [],
       noResourse: "",
-      nextUrl: ""
+      nextUrl: "",
+      loadAll: false,
+      loading: false,
+      isAt: true
     };
   },
   components: {
@@ -68,8 +76,16 @@ export default {
   },
   methods: {
     loadMore() {
-      if (!this.nextUrl || this.$route.path != "/home") {
-        return false;
+      if (!this.isAt) return;
+      this.loading = true;
+      if (!this.nextUrl) {
+        Toast({
+          message: "已经到底了",
+          iconClass: "iconfont icon-xiaolianchenggong",
+          duration: 1000
+        });
+        this.loading = false;
+        return;
       } else {
         let lixun = sessionStorage.getItem("lixun");
         this.$ajax({
@@ -77,9 +93,15 @@ export default {
           url: "/info" + this.nextUrl
         })
           .then(res => {
-            console.log("home", res);
+            console.log("home-scroll", res);
             this.searchList = this.searchList.concat(res.data.data.list);
-            this.nextUrl = res.data.data.list?res.data.data.page.url.next:null;
+            this.nextUrl =
+              (res.data.data.page &&
+                res.data.data.page.url &&
+                res.data.data.page.url.next) ||
+              "";
+            this.loading = false;
+            console.log(this.nextUrl);
           })
           .catch(err => {
             console.log(err);
@@ -96,7 +118,10 @@ export default {
     },
     toDetail(list) {
       sessionStorage.setItem("scroll", document.body.scrollTop);
-      this.$store.commit("changeUrl", "http://chenjianguang.com/static/lixun/getter.png");
+      this.$store.commit(
+        "changeUrl",
+        "http://chenjianguang.com/static/lixun/getter.png"
+      );
       this.$router.push({ path: "/listDetail", query: { id: list.id } });
     },
     goRelease() {
@@ -105,15 +130,15 @@ export default {
     },
     selectSure(e) {
       this.showSelect = false;
-      this.what=[];
-      this.where=[];
+      this.what = [];
+      this.where = [];
       console.log(e);
       if (e == []) return;
-      if (!e[0]&&e[1]) {
+      if (!e[0] && e[1]) {
         e[1].forEach(element => {
           this.what.push(element.whattag);
         });
-      } else if (!e[1]&&e[0]) {
+      } else if (!e[1] && e[0]) {
         e[0].forEach(element => {
           this.where.push(element.wheretag);
         });
@@ -128,10 +153,6 @@ export default {
       this.search();
     },
     search() {
-      // if (!this.searchVal) {
-      //   MessageBox.alert("搜索不能为空");
-      //   return;
-      // }
       let lixun = sessionStorage.getItem("lixun");
       this.$ajax({
         method: "post",
@@ -152,11 +173,29 @@ export default {
             this.noResourse = "";
           }
           this.searchList = res.data.data.list;
+          this.nextUrl =
+            (res.data.data.page &&
+              res.data.data.page.url &&
+              res.data.data.page.url.next) ||
+            "";
         })
         .catch(err => {
           console.log(err);
         });
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    console.log(document.body.scrollTop);
+    document.body.scrollTop = 0;
+    next(vm => {
+      vm.loading = false;
+      vm.isAt = true;
+    });
+  },
+  beforeRouteLeave(to, from, next) {
+    this.loading = false;
+    this.isAt = false;
+    next();
   },
   store
 };

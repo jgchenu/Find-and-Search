@@ -26,6 +26,7 @@
         <div class="selects">
           <select class="places" v-model="wheretag">
             <option disabled value="">丢失地点</option>
+            <option value="文山湖">文山湖</option>
             <option value="桂庙">桂庙</option>
             <option value="文科楼">文科楼</option>
             <option value="西南">西南</option>
@@ -90,6 +91,7 @@ export default {
     })
       .then(res => {
         console.log("要修改的原来的信息", res);
+        this.changeType(res.data.data.info.type-1);
         this.title = res.data.data.info.title;
         this.content = res.data.data.info.content;
         this.phone = res.data.data.info.phone;

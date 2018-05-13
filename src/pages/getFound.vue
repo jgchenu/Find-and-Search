@@ -13,8 +13,8 @@
   </div>
   <mt-loadmore :top-method="loadTop" ref="loadmore">
     <div class="search-lists" v-infinite-scroll="loadMoreFound"
-  infinite-scroll-disabled="true"
-  infinite-scroll-distance="0">
+  infinite-scroll-disabled="loading"
+  infinite-scroll-distance="0" infinite-scroll-immediate-check="false">
       <search-list v-for="list in searchList" :key="list.sid" :list="list" @click.native="toDetail(list)"></search-list>
       <p class="no-resourse">{{noResourse}}</p>
     </div>
@@ -30,7 +30,7 @@ import searchList from "@/components/home/search-list";
 import store from "@/vuex/store.js";
 import selectPlace from "@/components/home/select-place";
 import selectDetail from "@/components/home/select-detail";
-
+import { Toast } from "mint-ui";
 export default {
   mounted() {
     let lixun = sessionStorage.getItem("lixun");
@@ -41,15 +41,15 @@ export default {
     })
       .then(res => {
         console.log("getFound", res);
-        let data = res.data.data;
         this.searchList = res.data.data.list;
         this.nextUrl =
-          (data.list &&
-            data.list.page &&
-            data.page.url &&
-            data.page.url.next) ||
-          null;
+          (res.data.data.page &&
+            res.data.data.page.url &&
+            res.data.data.page.url.next) ||
+          "";
+        console.log(this.nextUrl);
       })
+
       .catch(err => {
         console.log(err);
         console.log(err.response);
@@ -63,7 +63,10 @@ export default {
       what: [],
       where: [],
       noResourse: "",
-      nextUrl: ""
+      nextUrl: "",
+      loadAll: false,
+      loading: false,
+      isAt: true
     };
   },
   components: {
@@ -74,8 +77,16 @@ export default {
   },
   methods: {
     loadMoreFound() {
-      if (!this.nextUrl || this.$route.path != "/getFound") {
-        return false;
+      if (!this.isAt) return;
+      this.loading = true;
+      if (!this.nextUrl) {
+        Toast({
+          message: "已经到底了",
+          iconClass: "iconfont icon-xiaolianchenggong",
+          duration: 1000
+        });
+        this.loading = false;
+        return;
       } else {
         let lixun = sessionStorage.getItem("lixun");
         this.$ajax({
@@ -84,14 +95,13 @@ export default {
         })
           .then(res => {
             console.log("getFound", res);
-            let data = res.data.data;
-            this.searchList = res.data.data.list;
+            this.searchList = this.searchList.concat(res.data.data.list);
             this.nextUrl =
-              (data.list &&
-                data.list.page &&
-                data.page.url &&
-                data.page.url.next) ||
-              null;
+              (res.data.data.page &&
+                res.data.data.page.url &&
+                res.data.data.page.url.next) ||
+              "";
+            this.loading = false;
           })
           .catch(err => {
             console.log(err);
@@ -143,10 +153,6 @@ export default {
       this.search();
     },
     search() {
-      // if (!this.searchVal) {
-      //   alert("搜索不能为空");
-      //   return;
-      // }
       let lixun = sessionStorage.getItem("lixun");
       this.$ajax({
         method: "post",
@@ -167,11 +173,29 @@ export default {
             this.noResourse = "";
           }
           this.searchList = res.data.data.list;
+          this.nextUrl =
+            (res.data.data.page &&
+              res.data.data.page.url &&
+              res.data.data.page.url.next) ||
+            "";
         })
         .catch(err => {
           console.log(err);
         });
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    console.log(document.body.scrollTop);
+    document.body.scrollTop = 0;
+    next(vm => {
+      vm.loading = false;
+      vm.isAt = true;
+    });
+  },
+  beforeRouteLeave(to, from, next) {
+    this.loading = false;
+    this.isAt = false;
+    next();
   },
   store
 };

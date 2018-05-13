@@ -31,6 +31,7 @@ export default {
     return {
       placesList: [
         { wheretag: "桂庙", isSelect: false },
+        { wheretag: "文山湖", isSelect: false },
         { wheretag: "文科楼", isSelect: false },
         { wheretag: "西南", isSelect: false },
         { wheretag: "南区", isSelect: false },

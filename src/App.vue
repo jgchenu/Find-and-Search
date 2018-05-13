@@ -19,23 +19,25 @@ export default {
   components: {
     footerNav
   },
-  created() {},
-  data() {
-    return { code: "" };
-  },
-  mounted: function() {
+  created() {
     
   },
+  data() {
+    return {
+      share: "",
+      imgUrl: ""
+    };
+  },
+  methods: {
 
-  methods: {}
+  }
 };
 </script>
 
 <style  lang="scss" >
 @import "./assets/base.scss";
-$url:"//at.alicdn.com/t/font_437285_udl679lmotfkcsor.css";
+$url: "//at.alicdn.com/t/font_437285_udl679lmotfkcsor.css";
 @import url($url);
-
 </style>
 
 

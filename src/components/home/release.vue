@@ -31,6 +31,7 @@
           <select class="places" v-model="wheretag">
             <option disabled value="">丢失地点</option>
             <option value="桂庙">桂庙</option>
+            <option value="文山湖">文山湖</option>
             <option value="文科楼">文科楼</option>
             <option value="西南">西南</option>
             <option value="南区">南区</option>
@@ -78,7 +79,7 @@ import axios from "axios";
 import { Toast } from "mint-ui";
 import { MessageBox } from "mint-ui";
 import { Indicator } from "mint-ui";
-import auth from '@/api/auth';
+import auth from "@/api/auth";
 export default {
   mounted() {
     document.body.scrollTop = 0;
@@ -202,15 +203,15 @@ export default {
               setTimeout(() => {
                 if (this.selectType[0].isSelect) {
                   this.$router.replace({ path: "/home" });
-                }else{
-                   this.$router.replace({ path: "/getFound" });
+                } else {
+                  this.$router.replace({ path: "/getFound" });
                 }
                 window.location.reload();
               }, 1000);
             })
             .catch(err => {
               Indicator.close();
-              auth(err.response.data.code,err.response.data.message);
+              auth(err.response.data.code, err.response.data.message);
               Toast({
                 message: err.response.data.message,
                 iconClass: "iconfont icon-xiaolianchenggong",
@@ -230,7 +231,7 @@ export default {
     cancel() {
       this.fileImage = "";
       document.getElementById("file").value = "";
-      this.upImage=[];
+      this.upImage = [];
     }
   },
   components: {

@@ -5,6 +5,12 @@ import {
   getCookie
 } from '@/api/tool.js'
 import auth from "@/api/auth";
+import {
+  redirectUrl
+}
+from '@/api/variable'
+
+
 //引入路由加载的组件
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -93,13 +99,8 @@ const router = new VueRouter({
 
 //调用auth函数，对每次进入路由页面进行验证
 router.beforeEach((to, from, next) => {
-  // let url = "http://192.168.137.1:8080";
-  // let url = "http://192.168.1.141:8080";
-  // let url = "http://192.168.1.113:8080";
-  // let url = "http://chenjianguang.com/lixun";
-  let url = "http://jwwo.szer.me/lx/index.html";
-  // let url = window.location.href;
-  // let url = "http://172.29.24.102:8080";
+
+
   if (getCookie("lzs_token")) {
     next();
   } else {
@@ -123,7 +124,7 @@ router.beforeEach((to, from, next) => {
         auth(code,message);
       });
     } else {
-      window.location.href = getCodeUrl(url, "wx0c6e2f0a288033bc", 2);
+      window.location.href = getCodeUrl(redirectUrl, "wx0c6e2f0a288033bc", 2);
     }
   }
 });
