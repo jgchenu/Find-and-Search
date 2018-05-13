@@ -1,6 +1,9 @@
 import {
   subCode,
-  getCodeUrl
+  getCodeUrl,
+  delCookie,
+  getCookie
+
 } from '@/api/tool.js'
 import {
   redirectUrl
@@ -17,6 +20,7 @@ var auth = (status, message = null) => {
     case 40102:
     case 40005:
       console.log(router);
+       delCookie('lzs_token');
       window.localStorage.setItem('lx_router', router.history.pending && router.history.pending.fullPath || router.history.current.fullPath);
       Toast({
         message: message,

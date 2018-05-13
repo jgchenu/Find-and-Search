@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>delcookie</title>
+</head>
+
+<body>
+  <script>
+    function delCookie(name) {
+      var exp = new Date();
+      exp.setTime(exp.getTime() - 1);
+      var cval = getCookie(name);
+      if (cval !=
+        null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString() + ";path=/";
+    }
+
+    function getCookie(name) {
+      var
+        arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+      if ((arr = document.cookie.match(reg))) return unescape(arr[2]);
+      else return null;
+    }
+
+  </script>
+</body>
+<button onclick="alert(getCookie('lzs_token'))">获取cookie</button>
+<button onclick="delCookie('lzs_token')">点击清除cookie</button>
+</html>
