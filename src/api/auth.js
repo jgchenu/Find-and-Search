@@ -19,7 +19,7 @@ var auth = (status, message = null) => {
   switch (status) {
     case 40102:
     case 40005:
-      console.log(router);
+      // console.log(router);
        delCookie('lzs_token');
       window.localStorage.setItem('lx_router', router.history.pending && router.history.pending.fullPath || router.history.current.fullPath);
       Toast({

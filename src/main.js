@@ -15,8 +15,8 @@ Vue.use(InfiniteScroll);
 import { Popup } from 'mint-ui';
 Vue.component(Popup.name, Popup);
 import 'lib-flexible';
-import Vconsole from 'vconsole'
-let vConsole = new Vconsole()
+// import Vconsole from 'vconsole'
+// let vConsole = new Vconsole()
 
 // Vue.prototype.$http = axios;
 Vue.config.productionTip = false;

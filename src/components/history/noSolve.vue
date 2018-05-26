@@ -22,10 +22,10 @@ export default {
       url: "/info/user"
     })
       .then(res => {
-        console.log("noSolve", res.data);
+        // console.log("noSolve", res.data);
         if (res.data.data.list.length == 0) {
           this.noResourse = "暂无已经发布的记录,快去发布吧！";
-          console.log("暂无资源");
+          // console.log("暂无资源");
         } else {
           this.noResourse = "";
         }
@@ -38,7 +38,7 @@ export default {
         });
       })
       .catch(err => {
-        console.log(err.response.data.code);
+        // console.log(err.response.data.code);
       });
   },
   data() {

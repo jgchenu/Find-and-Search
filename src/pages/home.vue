@@ -32,7 +32,8 @@ import store from "@/vuex/store.js";
 import selectPlace from "@/components/home/select-place";
 import selectDetail from "@/components/home/select-detail";
 import { Toast } from "mint-ui";
-import {wxFn} from  '@/api/tool.js'
+import { wxFn } from "@/api/tool.js";
+import { getterUrl } from "@/api/variable.js";
 export default {
   mounted() {
     let lixun = sessionStorage.getItem("lixun");
@@ -42,19 +43,19 @@ export default {
       params: { type: 1 }
     })
       .then(res => {
-        console.log("home", res);
+        ("home", res);
         this.searchList = res.data.data.list;
         this.nextUrl =
           (res.data.data.page &&
             res.data.data.page.url &&
             res.data.data.page.url.next) ||
           "";
-        console.log(this.nextUrl);
+        (this.nextUrl);
       })
       .catch(err => {
-        console.log(err);
+        (err);
       });
-      wxFn.call(this);
+    wxFn.call(this);
   },
   data() {
     return {
@@ -95,7 +96,7 @@ export default {
           url: "/info" + this.nextUrl
         })
           .then(res => {
-            console.log("home-scroll", res);
+            ("home-scroll", res);
             this.searchList = this.searchList.concat(res.data.data.list);
             this.nextUrl =
               (res.data.data.page &&
@@ -103,10 +104,10 @@ export default {
                 res.data.data.page.url.next) ||
               "";
             this.loading = false;
-            console.log(this.nextUrl);
+            // console.log(this.nextUrl);
           })
           .catch(err => {
-            console.log(err);
+            // console.log(err);
           });
       }
     },
@@ -120,10 +121,7 @@ export default {
     },
     toDetail(list) {
       sessionStorage.setItem("scroll", document.body.scrollTop);
-      this.$store.commit(
-        "changeUrl",
-        "http://chenjianguang.com/static/lixun/getter.png"
-      );
+      this.$store.commit("changeUrl", getterUrl);
       this.$router.push({ path: "/listDetail", query: { id: list.id } });
     },
     goRelease() {
@@ -134,7 +132,7 @@ export default {
       this.showSelect = false;
       this.what = [];
       this.where = [];
-      console.log(e);
+      // console.log(e);
       if (e == []) return;
       if (!e[0] && e[1]) {
         e[1].forEach(element => {
@@ -167,10 +165,10 @@ export default {
         }
       })
         .then(res => {
-          console.log("search", res);
+          // console.log("search", res);
           if (res.data.data.list.length == 0) {
             this.noResourse = "暂无此类资源，请换个词试试！";
-            console.log("暂无资源");
+            // console.log("暂无资源");
           } else {
             this.noResourse = "";
           }
@@ -182,12 +180,12 @@ export default {
             "";
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
         });
     }
   },
   beforeRouteEnter(to, from, next) {
-    console.log(document.body.scrollTop);
+    // console.log(document.body.scrollTop);
     document.body.scrollTop = 0;
     next(vm => {
       vm.loading = false;
@@ -247,7 +245,7 @@ export default {
         top: 4px;
         border-left: 1px solid #cccccc;
       }
-      @include change-placeholder(#ccc,26px);
+      @include change-placeholder(#ccc, 26px);
     }
   }
 }

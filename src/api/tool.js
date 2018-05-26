@@ -1,4 +1,8 @@
-import {host} from "./variable"
+import {
+  host,
+  insteadUrl
+} from "./variable"
+
 const getCodeUrl = (url, appid, type) => {
   let encodeurl = encodeURI(url),
     wx, scope;
@@ -35,7 +39,7 @@ function delCookie(name) {
 
 
 function wxFn() {
-  console.log(this);
+  // console.log(this);
   this.$ajax({
     url: `/wechat/sign`,
     method: "post",
@@ -45,7 +49,7 @@ function wxFn() {
   })
     .then(res => {
       this.share = res.data.data;
-      console.log(res);
+      // console.log(res);
       wx.config({
         debug: false,
         appId: "wx0c6e2f0a288033bc",
@@ -67,7 +71,7 @@ function wxFn() {
           title: `小荔寻`,
           desc: `深大荔知的寻物平台`,
           link: `${host}#${routerUrl}`,
-          imgUrl: "http://chenjianguang.com/static/lixun/instead.png"
+          imgUrl: insteadUrl
         };
         wx.onMenuShareAppMessage(shareData);
         wx.onMenuShareTimeline(shareData);

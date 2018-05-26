@@ -32,6 +32,7 @@ import selectPlace from "@/components/home/select-place";
 import selectDetail from "@/components/home/select-detail";
 import { Toast } from "mint-ui";
 import { wxFn } from "@/api/tool.js";
+import {loserUrl} from '@/api/variable.js'
 export default {
   mounted() {
     wxFn.call(this);
@@ -42,19 +43,19 @@ export default {
       params: { type: 2 }
     })
       .then(res => {
-        console.log("getFound", res);
+        // console.log("getFound", res);
         this.searchList = res.data.data.list;
         this.nextUrl =
           (res.data.data.page &&
             res.data.data.page.url &&
             res.data.data.page.url.next) ||
           "";
-        console.log(this.nextUrl);
+        // console.log(this.nextUrl);
       })
 
       .catch(err => {
-        console.log(err);
-        console.log(err.response);
+        // console.log(err);
+        // console.log(err.response);
       });
   },
   data() {
@@ -96,7 +97,7 @@ export default {
           url: "/info" + this.nextUrl
         })
           .then(res => {
-            console.log("getFound", res);
+            // console.log("getFound", res);
             this.searchList = this.searchList.concat(res.data.data.list);
             this.nextUrl =
               (res.data.data.page &&
@@ -106,7 +107,7 @@ export default {
             this.loading = false;
           })
           .catch(err => {
-            console.log(err);
+            // console.log(err);
           });
       }
     },
@@ -122,10 +123,10 @@ export default {
       this.$store.commit("setScrollTop", document.body.scrollTop);
       this.$store.commit(
         "changeUrl",
-        "http://chenjianguang.com/static/lixun/loster.png"
+       loserUrl
       );
       this.$router.push({ path: "/listDetail", query: { id: list.id } });
-      console.log(this.$store.state.scrollTop);
+      // console.log(this.$store.state.scrollTop);
     },
     goRelease() {
       this.$router.push({ path: "/release" });
@@ -134,7 +135,7 @@ export default {
       this.showSelect = false;
       this.what = [];
       this.where = [];
-      console.log(e);
+      // console.log(e);
       if (e == []) return;
       if (!e[0] && e[1]) {
         e[1].forEach(element => {
@@ -167,10 +168,10 @@ export default {
         }
       })
         .then(res => {
-          console.log("search", res);
+          // console.log("search", res);
           if (res.data.data.list.length == 0) {
             this.noResourse = "暂无此类资源，请换个词试试！";
-            console.log("暂无资源");
+            // console.log("暂无资源");
           } else {
             this.noResourse = "";
           }
@@ -182,12 +183,12 @@ export default {
             "";
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
         });
     }
   },
   beforeRouteEnter(to, from, next) {
-    console.log(document.body.scrollTop);
+    // console.log(document.body.scrollTop);
     document.body.scrollTop = 0;
     next(vm => {
       vm.loading = false;

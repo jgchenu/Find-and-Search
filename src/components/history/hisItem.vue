@@ -5,7 +5,7 @@
         </div>
         <div class="message-right">
             <h3 class="search-list-title">{{list.title}}</h3>
-            <p class="search-list-detail">{{list.content}}</p>
+            <p class="search-list-detail">{{computedContent}}</p>
             <p class="search-tips">
                 <span class="iconfont icon-coordinates place">{{list.wheretag||"其他"}}</span>
                 <span class="iconfont icon-lishi time">{{date||"不确定"}}</span>
@@ -17,7 +17,8 @@
     </div>
 </template>
 <script>
-import { MessageBox,Toast } from "mint-ui";
+import { MessageBox, Toast } from "mint-ui";
+import { insteadUrl } from "@/api/variable.js";
 export default {
   props: {
     list: {
@@ -39,21 +40,28 @@ export default {
       return month + "月" + day + "日";
     },
     imgUrl() {
-      return this.list.picurl ? this.list.picurl.thumb[0] : "http://chenjianguang.com/static/lixun/instead.png";
+      return this.list.picurl ? this.list.picurl.thumb[0] : insteadUrl;
+    },
+    computedContent() {
+      let str = this.list.content;
+      if (str.length > 45) {
+        str = str.substr(0, 44) + "......";
+      }
+      return str;
     }
   },
   methods: {
     toEdit() {
       this.$emit("toEdit");
     },
-    resub(){
-        MessageBox.confirm("确定是否重新发布？").then(
+    resub() {
+      MessageBox.confirm("确定是否重新发布？").then(
         success => {
-          let id=this.list.id;
+          let id = this.list.id;
           let lixun = sessionStorage.getItem("lixun");
           this.$ajax({
             method: "post",
-            url: "/info/" + id+"/renew"
+            url: "/info/" + id + "/renew"
           })
             .then(res => {
               setTimeout(() => {
@@ -64,10 +72,10 @@ export default {
                 iconClass: "iconfont icon-xiaolianchenggong",
                 duration: 800
               });
-              console.log(res);
+              // console.log(res);
             })
             .catch(err => {
-              console.log(err);
+              // console.log(err);
             });
         },
         cancel => {
@@ -78,7 +86,6 @@ export default {
           });
         }
       );
-
     }
   }
 };
@@ -137,7 +144,8 @@ export default {
         font-size: 24px;
         margin-right: 2px;
       }
-      span.time,span.icon-bofang {
+      span.time,
+      span.icon-bofang {
         margin-left: 10px;
       }
       span.icon-bofang {

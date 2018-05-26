@@ -6,7 +6,7 @@
         </div>
         <div class="message-right">
             <h3 class="search-list-title">{{list.title}}</h3>
-            <p class="search-list-detail">{{list.content}}</p>
+            <p class="search-list-detail">{{computedContent}}</p>
             <p class="search-tips">
                 <i class="iconfont icon-coordinates place"></i><span class="place">{{list.wheretag||"不确定"}}</span>
                 <span class="time">{{date||"不确定"}}</span><i class="iconfont icon-lishi time"></i>
@@ -15,6 +15,7 @@
     </div>
 </template>
 <script>
+import {insteadUrl} from '@/api/variable.js'
 export default {
   props: {
     list: {
@@ -30,13 +31,20 @@ export default {
     imgUrl() {
       return this.list.picurl
         ? this.list.picurl.thumb[0]
-        : "http://chenjianguang.com/static/lixun/instead.png";
+        : insteadUrl;
     },
     date() {
       let date = new Date(this.list.lasttime * 1000);
       let month = date.getMonth() + 1;
       let day = date.getDate();
       return month + "月" + day + "日";
+    },
+    computedContent() {
+      let str = this.list.content;
+      if (str.length > 45) {
+        str = str.substr(0, 44) + "......";
+      }
+      return str;
     }
   }
 };
@@ -70,7 +78,7 @@ export default {
       height: 220px;
       width: 220px;
       margin: auto;
-      background: url("http://chenjianguang.com/static/lixun/loading.gif")
+      background: url("http://test.jgchen.xin/static/lixun/loading.gif")
         no-repeat;
       background-position: center center;
       background-size: cover;

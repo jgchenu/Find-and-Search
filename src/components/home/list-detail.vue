@@ -31,6 +31,7 @@
 import myButton from "@/components/comm/my-button";
 import store from "@/vuex/store.js";
 import axios from "axios";
+import { insteadUrl, loserUrl, getterUrl } from "@/api/variable.js";
 export default {
   name: "listDetail",
   mounted() {
@@ -41,28 +42,21 @@ export default {
       url: "/info/" + id
     })
       .then(res => {
-        console.log("list-detail", res);
+        // console.log("list-detail", res);
         this.listDetail = res.data.data.info;
         this.imgurl = this.listDetail.picurl
           ? this.listDetail.picurl.master[0]
-          : "http://chenjianguang.com/static/lixun/instead.png";
+          : insteadUrl;
         if (res.data.data.info.type === 1) {
-          this.$store.commit(
-            "changeUrl",
-            "http://chenjianguang.com/static/lixun/getter.png"
-          );
+          this.$store.commit("changeUrl", getterUrl);
         } else if (res.data.data.info.type === 2) {
-          this.$store.commit(
-            "changeUrl",
-            "http://chenjianguang.com/static/lixun/loster.png"
-          );
+          this.$store.commit("changeUrl", loserUrl);
         }
         this.wx();
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
-    
   },
   data() {
     return {
@@ -95,7 +89,7 @@ export default {
       })
         .then(res => {
           this.share = res.data.data;
-          console.log(res);
+          // console.log(res);
           wx.config({
             debug: false,
             appId: "wx0c6e2f0a288033bc",
@@ -115,12 +109,12 @@ export default {
           wx.ready(function() {
             let host = "http://jwwo.szer.me/lx/index.html";
             var shareData = {
-              title: `${self.listDetail.type==1?'寻物':'招领'}: ${self.listDetail.title}`,
+              title: `${self.listDetail.type == 1 ? "寻物" : "招领"}: ${
+                self.listDetail.title
+              }`,
               desc: "小荔寻-深大荔知的寻物平台",
               link: `${host}#/listDetail?id=${self.listDetail.id}`,
-              imgUrl: self.imgurl
-                ? self.imgurl
-                : "http://chenjianguang.com/static/lixun/instead.png"
+              imgUrl: self.imgurl ? self.imgurl : insteadUrl
             };
             wx.onMenuShareAppMessage(shareData);
             wx.onMenuShareTimeline(shareData);
@@ -130,7 +124,7 @@ export default {
           });
         })
         .catch(err => {
-          console.log(err.response);
+          // console.log(err.response);
         });
     }
   },
@@ -243,7 +237,7 @@ export default {
           height: 300px;
           width: 300px;
           margin: auto;
-          background: url("http://chenjianguang.com/static/lixun/loading.gif")
+          background: url("http://test.jgchen.xin/static/lixun/loading.gif")
             no-repeat;
           background-position: center center;
           background-size: cover;

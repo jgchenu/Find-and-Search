@@ -68,7 +68,7 @@
     </div>
     </div>
     <div class="Triangle"></div>
-    <img src="http://chenjianguang.com/static/lixun/sub.png" alt="点击提交" class="subButton" @click.prevent="subMessage">
+    <img :src="subUrl" alt="点击提交" class="subButton" @click.prevent="subMessage">
   </div>
 </template>
 <script>
@@ -80,6 +80,7 @@ import { Toast } from "mint-ui";
 import { MessageBox } from "mint-ui";
 import { Indicator } from "mint-ui";
 import auth from "@/api/auth";
+import {subUrl} from "@/api/variable.js";
 export default {
   mounted() {
     document.body.scrollTop = 0;
@@ -106,7 +107,8 @@ export default {
       upImage: [],
       type: null,
       whattag: "",
-      wheretag: ""
+      wheretag: "",
+      subUrl:subUrl
     };
   },
   methods: {
@@ -141,7 +143,7 @@ export default {
         })
         .always(function() {
           // 不管是成功失败，都会执行
-          console.log("调用上传图片");
+          // console.log("调用上传图片");
         });
     },
     changeType(index) {
@@ -194,7 +196,7 @@ export default {
             .post("/lixun/info", formdata)
             .then(res => {
               Indicator.close();
-              console.log("res", res);
+              // console.log("res", res);
               Toast({
                 message: tip,
                 iconClass: "iconfont icon-xiaolianchenggong",

@@ -9,32 +9,34 @@
         </div>
     </div>
     <div class="triangle"></div>
-    <img src="http://chenjianguang.com/static/lixun/message.png" alt="logo" class="message-logo">
+    <img :src="messageUrl" alt="logo" class="message-logo">
   </div>
 </template>
 <script>
 import { wxFn } from "@/api/tool.js";
+import { messageUrl } from "@/api/variable.js";
 export default {
   mounted() {
     let lixun = sessionStorage.getItem("lixun");
     let id = this.$route.query.id;
-    console.log(id);
+    // console.log(id);
     this.$ajax({
       method: "get",
       url: "/info/" + id
     })
       .then(res => {
-        console.log("getMessage", res);
+        // console.log("getMessage", res);
         this.message = res.data.data.info;
       })
       .catch(err => {
         this.$auth(err.response.data.code, err.response.data.message);
-        console.log(err.response.data.code);
+        // console.log(err.response.data.code);
       });
   },
   data() {
     return {
-      message:{}
+      message:{},
+      messageUrl:messageUrl
     };
   },
   methods: {

@@ -99,8 +99,6 @@ const router = new VueRouter({
 
 //调用auth函数，对每次进入路由页面进行验证
 router.beforeEach((to, from, next) => {
-
-
   if (getCookie("lzs_token")) {
     next();
   } else {
@@ -109,16 +107,15 @@ router.beforeEach((to, from, next) => {
       axios.get(
         "/lixun/auth/authorize?request_type=token&code=" + code
       ).then(response => {
-        console.log(response);
+        // console.log(response);
         let path = window.localStorage.getItem('lx_router') || '/home';
         router.push({
           path: path
         });
-        
         window.localStorage.setItem('lx_router','');
         window.location.reload();
       }).catch(error => {
-        console.log("没有换到token");
+        // console.log("没有换到token");
         let code = error.response.data.code;
         let message=error.response.data.message;
         auth(code,message);

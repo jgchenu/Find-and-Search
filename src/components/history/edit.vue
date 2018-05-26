@@ -77,7 +77,8 @@ import ajax from "api/ajax";
 import axios from "axios";
 import { Toast } from "mint-ui";
 import { MessageBox } from "mint-ui";
-import auth from '@/api/auth';
+import auth from "@/api/auth";
+import { insteadUrl } from "@/api/variable.js";
 export default {
   mounted() {
     document.body.scrollTop = 0;
@@ -90,18 +91,20 @@ export default {
       url: "/info/" + id
     })
       .then(res => {
-        console.log("要修改的原来的信息", res);
-        this.changeType(res.data.data.info.type-1);
+        // console.log("要修改的原来的信息", res);
+        this.changeType(res.data.data.info.type - 1);
         this.title = res.data.data.info.title;
         this.content = res.data.data.info.content;
         this.phone = res.data.data.info.phone;
         this.wechat = res.data.data.info.wechat;
-        this.whattag=res.data.data.info.whattag;
-        this.wheretag=res.data.data.info.wheretag;
-        this.fileImage=res.data.data.info.picurl&&res.data.data.info.picurl.master[0]||'http://chenjianguang.com/static/lixun/instead.png';
+        this.whattag = res.data.data.info.whattag;
+        this.wheretag = res.data.data.info.wheretag;
+        this.fileImage =
+          (res.data.data.info.picurl && res.data.data.info.picurl.master[0]) ||
+          insteadUrl;
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
   },
   beforeDestroy() {
@@ -155,7 +158,7 @@ export default {
         })
         .always(function() {
           // 不管是成功失败，都会执行
-          console.log("调用上传图片");
+          // console.log("调用上传图片");
         });
     },
     changeType(index) {
@@ -210,7 +213,7 @@ export default {
             }
           })
             .then(res => {
-              console.log("1111", res.data.data.list);
+              // console.log("1111", res.data.data.list);
               Toast({
                 message: tip,
                 iconClass: "iconfont icon-xiaolianchenggong",
@@ -220,9 +223,7 @@ export default {
                 this.$router.replace({ path: "/history/noSolve" });
               }, 1000);
             })
-            .catch(err => {
-              
-            });
+            .catch(err => {});
         },
         tip => {
           Toast({
@@ -234,7 +235,7 @@ export default {
       );
     },
     del() {
-      console.log("del");
+      // console.log("del");
       MessageBox.confirm("确定是否删除？").then(
         success => {
           let id = this.$route.query.id,
@@ -252,10 +253,10 @@ export default {
                 iconClass: "iconfont icon-xiaolianchenggong",
                 duration: 800
               });
-              console.log(res);
+              // console.log(res);
             })
             .catch(err => {
-              console.log(err);
+              // console.log(err);
             });
         },
         cancel => {
@@ -268,7 +269,7 @@ export default {
       );
     },
     solve() {
-      console.log("solve");
+      // console.log("solve");
       MessageBox.confirm("确定是否已经解决？").then(
         success => {
           let id = this.$route.query.id,
@@ -286,10 +287,10 @@ export default {
                 iconClass: "iconfont icon-xiaolianchenggong",
                 duration: 800
               });
-              console.log(res);
+              // console.log(res);
             })
             .catch(err => {
-              console.log(err);
+              // console.log(err);
             });
         },
         cancel => {
