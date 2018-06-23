@@ -22,7 +22,7 @@ npm run build --report
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-[项目体验链接](http://jwwo.szer.me/lx/index.html).
+[项目体验链接(使用微信token登录，需要在微信浏览器打开)](http://jwwo.szer.me/lx/index.html).
 
 ## 开源协议
 查看 [LICENSE](https://github.com/jgchenu/Finding-Things-by-vue/edit/master/LICENSE.md)
