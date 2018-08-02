@@ -1,6 +1,7 @@
 import {
   host,
-  insteadUrl
+  insteadUrl,
+  appId
 } from "./variable"
 
 const getCodeUrl = (url, appid, type) => {
@@ -41,18 +42,18 @@ function delCookie(name) {
 function wxFn() {
   // console.log(this);
   this.$ajax({
-    url: `/wechat/sign`,
-    method: "post",
-    data: {
-      url: window.location.href.split("#")[0]
-    }
-  })
+      url: `/wechat/sign`,
+      method: "post",
+      data: {
+        url: window.location.href.split("#")[0]
+      }
+    })
     .then(res => {
       this.share = res.data.data;
       // console.log(res);
       wx.config({
         debug: false,
-        appId: "wx0c6e2f0a288033bc",
+        appId: appId,
         timestamp: this.share.timestamp,
         nonceStr: this.share.noncestr,
         signature: this.share.signature,
@@ -68,7 +69,7 @@ function wxFn() {
       let routerUrl = this.$router.history.pending && this.$router.pending.fullPath || this.$router.history.current.fullPath
       wx.ready(function () {
         var shareData = {
-          title: `小荔寻`,
+          title: `小荔寻 『深大荔知』`,
           desc: `深大荔知的寻物平台`,
           link: `${host}#${routerUrl}`,
           imgUrl: insteadUrl

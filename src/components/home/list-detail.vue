@@ -31,7 +31,13 @@
 import myButton from "@/components/comm/my-button";
 import store from "@/vuex/store.js";
 import axios from "axios";
-import { insteadUrl, loserUrl, getterUrl } from "@/api/variable.js";
+import {
+  insteadUrl,
+  loserUrl,
+  getterUrl,
+  appId,
+  host
+} from "@/api/variable.js";
 export default {
   name: "listDetail",
   mounted() {
@@ -92,7 +98,7 @@ export default {
           // console.log(res);
           wx.config({
             debug: false,
-            appId: "wx0c6e2f0a288033bc",
+            appId: appId,
             timestamp: this.share.timestamp,
             nonceStr: this.share.noncestr,
             signature: this.share.signature,
@@ -107,11 +113,10 @@ export default {
           });
           let self = this;
           wx.ready(function() {
-            let host = "http://jwwo.szer.me/lx/index.html";
             var shareData = {
               title: `${self.listDetail.type == 1 ? "寻物" : "招领"}: ${
                 self.listDetail.title
-              }`,
+              } 『深大荔知』`,
               desc: "小荔寻-深大荔知的寻物平台",
               link: `${host}#/listDetail?id=${self.listDetail.id}`,
               imgUrl: self.imgurl ? self.imgurl : insteadUrl
@@ -237,8 +242,7 @@ export default {
           height: 300px;
           width: 300px;
           margin: auto;
-          background: url("http://test.jgchen.xin/static/lixun/loading.gif")
-            no-repeat;
+          background: url($gifUrl) no-repeat;
           background-position: center center;
           background-size: cover;
         }
@@ -250,9 +254,10 @@ export default {
           border-radius: 20px;
           color: $lizhiColor;
           text-align: left;
+          color: #555555;
           p {
             line-height: 40px;
-            color: $lizhiColor;
+            color: #555555;
           }
         }
       }
@@ -260,7 +265,6 @@ export default {
         flex-grow: 1;
         width: 80%;
         height: 78%;
-        font-size: #000;
         margin-right: 10px;
         line-height: 36px;
         font-size: 30px;

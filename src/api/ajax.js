@@ -6,7 +6,7 @@ import {
     Indicator
 } from 'mint-ui';
 const instance = axios.create({
-    baseURL: '/lixun',
+    baseURL: '/LZS/public/index.php',
     timeout: 1000,
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded;'

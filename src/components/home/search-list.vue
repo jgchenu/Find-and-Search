@@ -78,7 +78,7 @@ export default {
       height: 220px;
       width: 220px;
       margin: auto;
-      background: url("http://test.jgchen.xin/static/lixun/loading.gif")
+      background: url($gifUrl)
         no-repeat;
       background-position: center center;
       background-size: cover;
@@ -88,7 +88,7 @@ export default {
     width: 400px;
     margin-left: 0;
     .search-list-title {
-      color: $lizhiColor;
+      color: #0F0F0F;
       text-align: left;
       font-size: 36px;
       margin-bottom: 10px;
@@ -105,7 +105,7 @@ export default {
     }
     .search-tips {
       margin-top: 20px;
-      color: #c77573;
+      color: #555555;
       .iconfont {
         font-size: 24px;
       }

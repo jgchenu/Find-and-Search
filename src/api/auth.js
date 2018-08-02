@@ -6,21 +6,19 @@ import {
 
 } from '@/api/tool.js'
 import {
-  redirectUrl
-
+  redirectUrl,
+  appId
 } from './variable'
 import {
   Toast
 } from "mint-ui";
 import router from '@/router';
 var auth = (status, message = null) => {
-
-
   switch (status) {
     case 40102:
     case 40005:
       // console.log(router);
-       delCookie('lzs_token');
+      delCookie('lzs_token');
       window.localStorage.setItem('lx_router', router.history.pending && router.history.pending.fullPath || router.history.current.fullPath);
       Toast({
         message: message,
@@ -28,8 +26,7 @@ var auth = (status, message = null) => {
         duration: 800
       });
       setTimeout(() => {
-        window.location.href = getCodeUrl(redirectUrl, "wx0c6e2f0a288033bc", 2);
-
+        window.location.href = getCodeUrl(redirectUrl, appId, 2);
       }, 1000);
       break;
     case 40402:

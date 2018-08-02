@@ -29,7 +29,6 @@
             <option value="文山湖">文山湖</option>
             <option value="桂庙">桂庙</option>
             <option value="文科楼">文科楼</option>
-            <option value="西南">西南</option>
             <option value="南区">南区</option>
             <option value="斋区">斋区</option>
             <option value="西南">西南</option>

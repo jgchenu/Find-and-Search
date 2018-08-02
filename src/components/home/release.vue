@@ -33,7 +33,6 @@
             <option value="桂庙">桂庙</option>
             <option value="文山湖">文山湖</option>
             <option value="文科楼">文科楼</option>
-            <option value="西南">西南</option>
             <option value="南区">南区</option>
             <option value="斋区">斋区</option>
             <option value="西南">西南</option>
@@ -193,7 +192,7 @@ export default {
           formdata.append("image[]", this.upImage);
           Indicator.open("努力发布中");
           axios
-            .post("/lixun/info", formdata)
+            .post("/LZS/public/index.php/info", formdata)
             .then(res => {
               Indicator.close();
               // console.log("res", res);

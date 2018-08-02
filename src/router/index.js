@@ -6,7 +6,8 @@ import {
 } from '@/api/tool.js'
 import auth from "@/api/auth";
 import {
-  redirectUrl
+  redirectUrl,
+  appId
 }
 from '@/api/variable'
 
@@ -105,7 +106,7 @@ router.beforeEach((to, from, next) => {
     if (subCode('code')) {
       let code = subCode('code');
       axios.get(
-        "/lixun/auth/authorize?request_type=token&code=" + code
+        "/LZS/public/index.php/auth/authorize?request_type=token&code=" + code
       ).then(response => {
         // console.log(response);
         let path = window.localStorage.getItem('lx_router') || '/home';
@@ -121,7 +122,7 @@ router.beforeEach((to, from, next) => {
         auth(code,message);
       });
     } else {
-      window.location.href = getCodeUrl(redirectUrl, "wx0c6e2f0a288033bc", 2);
+      window.location.href = getCodeUrl(redirectUrl, appId, 2);
     }
   }
 });

@@ -79,7 +79,7 @@ export default {
     width: 650px;
     height: 2px;
     margin: 40px auto;
-    border-bottom: 1px solid $lizhiColor;
+    border-bottom: 1px solid #555555;
     position: relative;
     span {
       position: absolute;
@@ -89,7 +89,7 @@ export default {
       height: 20px;
       left: 190px;
       text-align: center;
-      color: $lizhiColor;
+      color: #555555;
       font-size: 20px;
     }
   }
